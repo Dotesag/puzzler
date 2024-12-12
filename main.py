@@ -1,18 +1,14 @@
-from tkinter import *
+import tkinter as tk
 
-def finish():
-    root.destroy()  # ручное закрытие окна и всего приложения
-    print("Закрытие приложения")
+window = tk.Tk()
+window.title("Puzzler")
+window.geometry('720x510')
+window.minsize(200, 350)
 
-root = Tk()
-root.geometry("500x400+730+300")
-root.minsize(500,400) 
+frame_title = tk.Frame(window, width=720, height=75, bg='#DCDCDC')
+frame_menu = tk.Frame(window, width=720, height=500, bg='green')
 
-icon = PhotoImage(file = "ico.png")
-root.iconphoto(True, icon)
-root.title("Puzzler")
+frame_title.place(relx=0, rely=0, relwidth=1, relheight=0.15)
+frame_menu.place(relx=0, rely=0.15, relwidth=1, relheight=0.85)
 
-
-root.protocol("WM_DELETE_WINDOW", finish)
-
-root.mainloop()
+window.mainloop()
