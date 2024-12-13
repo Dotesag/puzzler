@@ -1,14 +1,80 @@
 import tkinter as tk
+import subprocess
+
+from plate_list import plate_list
+
+
+def create_rounded_rectangle(canvas, x1, y1, x2, y2, radius, **kwargs):
+    points = [
+        x1 + radius, y1,
+        x1 + radius, y1,
+        x2 - radius, y1,
+        x2 - radius, y1,
+        x2, y1,
+        x2, y1 + radius,
+        x2, y1 + radius,
+        x2, y2 - radius,
+        x2, y2 - radius,
+        x2, y2,
+        x2 - radius, y2,
+        x2 - radius, y2,
+        x1 + radius, y2,
+        x1 + radius, y2,
+        x1, y2,
+        x1, y2 - radius,
+        x1, y2 - radius,
+        x1, y1 + radius,
+        x1, y1 + radius,
+        x1, y1,
+    ]
+    return canvas.create_polygon(points, smooth=True, **kwargs)
+
+
+def create_button(canvas, x1, y1, x2, y2, text, radius, command=None):
+    btn = create_rounded_rectangle(canvas, x1, y1, x2, y2, radius, fill="#4CAF50", outline="#388E3C", width=2)
+    text_id = canvas.create_text(
+        (x1 + x2) / 2,
+        (y1 + y2) / 2,
+        text=text,
+        font=("Helvetica", 14, "bold"),
+        fill="white"
+    )
+
+    # Bind click events to the canvas
+    def on_click(event):
+        if command:
+            command()
+
+    canvas.tag_bind(btn, "<Button-1>", on_click)
+    canvas.tag_bind(text_id, "<Button-1>", on_click)
+
 
 window = tk.Tk()
 window.title("Puzzler")
 window.geometry('720x510')
-window.minsize(200, 350)
+window.resizable(False, False)
 
-frame_title = tk.Frame(window, width=720, height=75, bg='#DCDCDC')
-frame_menu = tk.Frame(window, width=720, height=500, bg='green')
+# Установка цвета самого заднего фона окна
+window.configure(bg="#E0F2E1")  # Цвет совпадает с основным фоном Canvas
 
-frame_title.place(relx=0, rely=0, relwidth=1, relheight=0.15)
-frame_menu.place(relx=0, rely=0.15, relwidth=1, relheight=0.85)
+canvas = tk.Canvas(window, width=720, height=510, bg="#E0F2E1", highlightthickness=0)
+canvas.pack()
+
+create_rounded_rectangle(canvas, 5, 5, 715, 505, radius=30, fill="#E0F2E1", outline="#57B748", width=1)
+canvas.create_text(360, 40, text="Меню", font=("Helvetica", 24, "bold"), fill="black")
+
+# Adding buttons
+button_width = 200
+button_height = 40
+button_spacing = 20
+start_x = (720 - (button_width * 3 + button_spacing * 2)) / 2
+start_y = 100
+
+create_button(canvas, start_x, start_y, start_x + button_width, start_y + button_height, "Список листов", radius=15,
+              command=plate_list)
+create_button(canvas, start_x + button_width + button_spacing, start_y,
+              start_x + button_width * 2 + button_spacing, start_y + button_height, "Создать фанеру", radius=15)
+create_button(canvas, start_x + (button_width + button_spacing) * 2, start_y,
+              start_x + button_width * 3 + button_spacing * 2, start_y + button_height, "Создать пазл", radius=15)
 
 window.mainloop()
