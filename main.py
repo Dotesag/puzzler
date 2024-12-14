@@ -2,6 +2,8 @@ import tkinter as tk
 import subprocess
 
 from plate_list import plate_list
+from create_plate import create_plate
+from create_puzzle import create_puzzle
 
 
 def create_rounded_rectangle(canvas, x1, y1, x2, y2, radius, **kwargs):
@@ -66,15 +68,25 @@ canvas.create_text(360, 40, text="Меню", font=("Helvetica", 24, "bold"), fil
 # Adding buttons
 button_width = 200
 button_height = 40
-button_spacing = 20
-start_x = (720 - (button_width * 3 + button_spacing * 2)) / 2
+button_spacing_x = 20
+button_spacing_y = 30
+start_x = (720 - (button_width * 2 + button_spacing_x)) / 2
 start_y = 100
 
-create_button(canvas, start_x, start_y, start_x + button_width, start_y + button_height, "Список листов", radius=15,
+# Верхний ряд
+create_button(canvas, start_x, start_y, start_x + button_width, start_y + button_height, "Создать лист", radius=15,
+              command=create_plate)
+create_button(canvas, start_x + button_width + button_spacing_x, start_y,
+              start_x + button_width * 2 + button_spacing_x, start_y + button_height, "Создать пазл", radius=15,
+              command=create_puzzle)
+
+# Нижний ряд
+create_button(canvas, start_x, start_y + button_height + button_spacing_y,
+              start_x + button_width, start_y + button_height * 2 + button_spacing_y, "Список листов", radius=15,
               command=plate_list)
-create_button(canvas, start_x + button_width + button_spacing, start_y,
-              start_x + button_width * 2 + button_spacing, start_y + button_height, "Создать фанеру", radius=15)
-create_button(canvas, start_x + (button_width + button_spacing) * 2, start_y,
-              start_x + button_width * 3 + button_spacing * 2, start_y + button_height, "Создать пазл", radius=15)
+create_button(canvas, start_x + button_width + button_spacing_x,
+              start_y + button_height + button_spacing_y,
+              start_x + button_width * 2 + button_spacing_x,
+              start_y + button_height * 2 + button_spacing_y, "Список заказов", radius=15)
 
 window.mainloop()
