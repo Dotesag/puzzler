@@ -5,7 +5,18 @@ from create_photo import create_photo
 from tkinter import messagebox
 
 import sqlite3
+"""
 
+    ЭТО ВСПОМОГАТЕЛЬНЫЙ ФАЙЛ. ОСНОВНОЙ ВСТАВЛЕН В main ПОТОМУ ЧТО ГРЕБАНЫЙ СБОРЩИК МУСОРА УБИВАЕТ КАРТИНКУ
+
+
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+"""
 
 def get_wood_types():
     data = []
@@ -87,7 +98,7 @@ def create_puzzle():
         tk.messagebox.showinfo("Успех", "Пазл успешно сохранен в базу данных!")
 
     # Создаем главное окно
-    window = tk.Tk()
+    window = tk.Toplevel()
     window.title("Создать новый пазл")
     window.geometry('800x600')
     window.resizable(False, False)
@@ -152,4 +163,4 @@ def create_puzzle():
     window.mainloop()
 
 
-create_puzzle()
+# create_puzzle()

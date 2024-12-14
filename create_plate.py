@@ -103,7 +103,7 @@ def create_button(canvas, text, radius, command=None):
 
 # Функция для окна создания листа
 def create_plate():
-    window = tk.Tk()
+    window = tk.Toplevel()
     window.title("Puzzler - создать лист фанеры")
     window.geometry('350x420')
     window.minsize(350, 420)

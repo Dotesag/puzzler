@@ -22,4 +22,4 @@ def create_photo(image_path, divisions, output_path):
     img.save(output_path)
 
 
-create_photo("asset/template.png", 4, "output.png")
+# create_photo("asset/template.png", 4, "output.png")

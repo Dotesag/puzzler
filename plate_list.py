@@ -16,7 +16,7 @@ def get_plane_list():
 
 
 def plate_list():
-    window = tk.Tk()
+    window = tk.Toplevel()
     window.title("Puzzler - список листов фанер")
     window.geometry('250x420')
     window.minsize(350, 420)
@@ -70,4 +70,4 @@ def plate_list():
     window.mainloop()
 
 
-plate_list()
+# plate_list()
