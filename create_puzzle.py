@@ -5,6 +5,7 @@ from create_photo import create_photo
 from tkinter import messagebox
 
 import sqlite3
+
 """
 
     ЭТО ВСПОМОГАТЕЛЬНЫЙ ФАЙЛ. ОСНОВНОЙ ВСТАВЛЕН В main ПОТОМУ ЧТО ГРЕБАНЫЙ СБОРЩИК МУСОРА УБИВАЕТ КАРТИНКУ
@@ -18,12 +19,13 @@ import sqlite3
 
 """
 
+
 def get_wood_types():
     data = []
     with sqlite3.connect('db/database.db') as db:
         cursor = db.cursor()
         query = '''
-                SELECT name, short_description FROM wood
+                SELECT name FROM planes
             '''
         cursor.execute(query)
         data = cursor.fetchall()
@@ -37,8 +39,9 @@ def save_puzzle(n, d, p):
         query = '''
                     INSERT INTO puzzles (name, details, plane) VALUES (?, ?, ?)
                 '''
-        cursor.execute(query, (n, d, p))
+        cursor.execute(query, (n, d, p.split()[0]))
         db.commit()
+
 
 def get_puzzle_list():
     data = []
@@ -51,6 +54,20 @@ def get_puzzle_list():
         data = cursor.fetchall()
     list = [i[0] for i in data]
     return list
+
+
+def get_price():
+    data = []
+    with sqlite3.connect('db/database.db') as db:
+        cursor = db.cursor()
+        query = '''
+            SELECT price FROM admin
+        '''
+        cursor.execute(query)
+        data = cursor.fetchall()
+    list = [i[0] for i in data]
+    return list
+
 
 def create_puzzle():
     def validate_positive_integer(value):
@@ -108,6 +125,13 @@ def create_puzzle():
     title_label = tk.Label(window, text="Создать новый пазл", font=("Helvetica", 24, "bold"), bg="#E0F2E1", fg="black")
     title_label.pack(pady=10)
 
+    price = max(get_price())
+    price_label = tk.Label(window, text=f"Ожидаемая цена: {price} руб.", font=("Helvetica", 16, "bold"), bg="#E0F2E1", fg="#262626")
+    price_label.pack(pady=20)
+
+
+
+
     # Блок "Изменить характеристики"
     characteristics_frame = tk.Frame(window, bg="#F6FFF6", bd=0, relief="solid", highlightbackground="#57B748",
                                      highlightthickness=2)
@@ -163,4 +187,5 @@ def create_puzzle():
     window.mainloop()
 
 
-# create_puzzle()
+if __name__ == "__main__":
+    create_puzzle()

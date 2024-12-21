@@ -177,4 +177,5 @@ def create_plate():
     window.mainloop()
 
 
-# create_plate()
+if __name__ == "__main__":
+    create_plate()
