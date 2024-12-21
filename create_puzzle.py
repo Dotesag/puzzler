@@ -6,19 +6,6 @@ from tkinter import messagebox
 
 import sqlite3
 
-"""
-
-    ЭТО ВСПОМОГАТЕЛЬНЫЙ ФАЙЛ. ОСНОВНОЙ ВСТАВЛЕН В main ПОТОМУ ЧТО ГРЕБАНЫЙ СБОРЩИК МУСОРА УБИВАЕТ КАРТИНКУ
-
-
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
-
-"""
-
 
 def get_wood_types():
     data = []
@@ -81,8 +68,8 @@ def create_puzzle():
 
     def update_puzzle_image(pieces):
         """Обновляет изображение пазла на основе количества деталей в ряду."""
-        create_photo("asset/template.png", pieces, "output.png")
-        img = Image.open("output.png")
+        create_photo("asset/template.png", pieces, "asset/output.png")
+        img = Image.open("asset/output.png")
         img_resized = img.resize((300, 300), Image.Resampling.LANCZOS)
         tk_img = ImageTk.PhotoImage(img_resized)
         img_label.config(image=tk_img)
@@ -170,8 +157,8 @@ def create_puzzle():
     placeholder_frame.place(x=450, y=150, width=300, height=300)
 
     # Инициализация изображения пазла
-    create_photo("asset/template.png", 4, "output.png")  # По умолчанию 4 детали
-    img = Image.open("output.png")
+    create_photo("asset/template.png", 4, "asset/output.png")  # По умолчанию 4 детали
+    img = Image.open("asset/output.png")
     img = img.resize((300, 300), Image.Resampling.LANCZOS)
     tk_img = ImageTk.PhotoImage(img)
 
