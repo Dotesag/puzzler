@@ -4,6 +4,7 @@ import subprocess
 from plate_list import plate_list
 from create_plate import create_plate
 from create_puzzle import create_puzzle
+from puzzle_list import puzzle_list
 
 
 def create_rounded_rectangle(canvas, x1, y1, x2, y2, radius, **kwargs):
@@ -87,6 +88,6 @@ create_button(canvas, start_x, start_y + button_height + button_spacing_y,
 create_button(canvas, start_x + button_width + button_spacing_x,
               start_y + button_height + button_spacing_y,
               start_x + button_width * 2 + button_spacing_x,
-              start_y + button_height * 2 + button_spacing_y, "Список заказов", radius=15)
+              start_y + button_height * 2 + button_spacing_y, "Список пазлов", radius=15, command=puzzle_list)
 
 window.mainloop()
